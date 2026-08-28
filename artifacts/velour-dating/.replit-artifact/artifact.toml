@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Velour Dating"
+description = "A high-class dating experience for ambitious, discerning singles seeking meaningful connections through a curated, editorial discovery experience."
+version = "1.0.0"
+id = "artifacts/velour-dating"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18967
+
+[services.development]
+run = "pnpm --filter @workspace/velour-dating run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/velour-dating", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/velour-dating/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18967"
+BASE_PATH = "/"
