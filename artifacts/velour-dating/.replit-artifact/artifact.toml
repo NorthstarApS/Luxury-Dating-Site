@@ -1,7 +1,7 @@
 kind = "web"
 previewPath = "/"
-title = "Velour Dating"
-description = "A high-class dating experience for ambitious, discerning singles seeking meaningful connections through a curated, editorial discovery experience."
+title = "SofiaDating"
+description = "SofiaDating — Færre. Bedre. Kurateret dating fra Datez Network. Eksklusiv betyder kvalitet, ikke formue."
 version = "1.0.0"
 id = "artifacts/velour-dating"
 router = "path"
@@ -18,6 +18,26 @@ run = "pnpm --filter @workspace/velour-dating run dev"
 build = [ "pnpm", "--filter", "@workspace/velour-dating", "run", "build" ]
 serve = "static"
 publicDir = "artifacts/velour-dating/dist/public"
+
+[[services.production.rewrites]]
+from = "/soulmate"
+to = "/soulmate/index.html"
+
+[[services.production.rewrites]]
+from = "/dating-med-omtanke"
+to = "/dating-med-omtanke/index.html"
+
+[[services.production.rewrites]]
+from = "/find-den-rigtige"
+to = "/find-den-rigtige/index.html"
+
+[[services.production.rewrites]]
+from = "/kvalitet-frem-for-kvantitet"
+to = "/kvalitet-frem-for-kvantitet/index.html"
+
+[[services.production.rewrites]]
+from = "/rolig-dating"
+to = "/rolig-dating/index.html"
 
 [[services.production.rewrites]]
 from = "/*"

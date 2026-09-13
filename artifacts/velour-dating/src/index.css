@@ -101,7 +101,11 @@
     radial-gradient(circle at 8% 35%, rgba(141, 94, 64, .08), transparent 25rem),
     hsl(var(--background));
   min-height: 100dvh;
-  overflow: hidden;
+  overflow-x: hidden;
+}
+
+.sofia-pillar {
+  overflow: visible;
 }
 
 .velour-app::before {
