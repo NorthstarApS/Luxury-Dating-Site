@@ -20,6 +20,26 @@ serve = "static"
 publicDir = "artifacts/velour-dating/dist/public"
 
 [[services.production.rewrites]]
+from = "/soulmate"
+to = "/soulmate/index.html"
+
+[[services.production.rewrites]]
+from = "/dating-med-omtanke"
+to = "/dating-med-omtanke/index.html"
+
+[[services.production.rewrites]]
+from = "/find-den-rigtige"
+to = "/find-den-rigtige/index.html"
+
+[[services.production.rewrites]]
+from = "/kvalitet-frem-for-kvantitet"
+to = "/kvalitet-frem-for-kvantitet/index.html"
+
+[[services.production.rewrites]]
+from = "/rolig-dating"
+to = "/rolig-dating/index.html"
+
+[[services.production.rewrites]]
 from = "/*"
 to = "/index.html"
 

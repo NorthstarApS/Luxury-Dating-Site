@@ -141,10 +141,23 @@ ${urls}
   );
 }
 
+function rewritePillarRequest(req: { url?: string }) {
+  const raw = req.url ?? '';
+  const [pathOnly, query] = raw.split('?');
+  const match = seoPillars.find((pillar) => pillar.path === pathOnly);
+  if (!match) return;
+  req.url = `${match.path}/index.html${query ? `?${query}` : ''}`;
+}
+
 export function sofiaPrerender(): Plugin {
   return {
     name: 'sofia-prerender',
-    apply: 'build',
+    configurePreviewServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        rewritePillarRequest(req);
+        next();
+      });
+    },
     closeBundle() {
       const distDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist/public');
       const template = readFileSync(join(distDir, 'index.html'), 'utf8');
@@ -174,7 +187,11 @@ export function sofiaPrerender(): Plugin {
 
       for (const page of pages) {
         mkdirSync(dirname(page.file), { recursive: true });
-        writeFileSync(page.file, applyHead(template, page));
+        const html = applyHead(template, page);
+        writeFileSync(page.file, html);
+        if (page.path !== '/') {
+          writeFileSync(join(distDir, `${page.path.slice(1)}.html`), html);
+        }
       }
 
       writeSitemap(pages, distDir);
